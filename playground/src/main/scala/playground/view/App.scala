@@ -8,5 +8,7 @@ object App {
       { Styles.renderAll() }
 
       { Header() }
+
+      { TodoList() }
     </div>
 }

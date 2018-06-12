@@ -9,6 +9,7 @@ object Styles {
   def renderAll(): Node =
     <style>
       { render(Header.Style) }
+      { render(TodoList.Style) }
     </style>
 
   private def render(style: StyleSheet.Inline): String =

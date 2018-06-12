@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+SCRIPT_DIR="$(dirname $0)"
+BASENAME="$(echo "$1" | sed 's/\.[^.]*$//')"
+PANDOC_COMMAND="pandoc -t beamer $BASENAME.md -o $BASENAME.pdf"
+NODEMON_COMMAND="nodemon --watch $BASENAME.md --exec $PANDOC_COMMAND"
+nix-shell "$SCRIPT_DIR/slides.nix" --run "$PANDOC_COMMAND && $NODEMON_COMMAND"

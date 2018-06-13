@@ -101,7 +101,12 @@ git branch
 ```bash
 git branch feature/arrow
 git checkout feature/arrow
-# Can be shorten to: git checkout -b feature/arrow
+```
+
+Those command can be shorten to:
+
+```bash
+git checkout -b feature/arrow
 ```
 
 ## Add a visualization arrow of the todos
@@ -142,7 +147,8 @@ git status
 git commit
 ```
 
-2. In the first line, resume your work by beginning with an action verb:
+2. The command above let you write the commit message, resume your work by
+   beginning with an action verb, like this:
 
 - Add a login banner on the home page
 - Integrate the project detail page
@@ -162,7 +168,8 @@ git remote -v
 
 ## Colorize the arrow
 
-Colorize in green a number of equals that is the number of completed todos.
+Colorize in green the number of equals in the arrow corresponding to the number
+of completed todos.
 
 ## Prepare a new commit and push it to origin
 
@@ -172,8 +179,8 @@ Colorize in green a number of equals that is the number of completed todos.
 
 ## Prepare a pull request
 
-Create a pull request from your branch `feature/arrow` in the GitHub interface.
-But don’t merge it yet, your collaborator is very busy and can’t review right
+Create a pull request from your branch `feature/arrow` in the GitHub interface,
+but don’t merge it yet, your collaborator is very busy and can’t review right
 now.
 
 ## Refactor the TodoList component
@@ -182,20 +189,18 @@ You’re gonna refactor the TodoList component.
 
 ## Create a new branch
 
-We’re making refactoring from another branch, that will lead to another pull
+You’ll refactor changes from another branch, this will lead to another pull
 request. This new branch will be based on master, and not on the current
 feature branch you have been working on.
 
 You have 2 options:
-
-1. Option 1:
 
 ```bash
 git checkout master
 git checkout -b refactor/todo-list
 ```
 
-2. Option 2:
+or
 
 ```bash
 git branch refactor/todo-list master
@@ -204,17 +209,16 @@ git checkout refactor/todo-list
 
 ## Refactor (1/2)
 
-Rename `todos` to `items`.
+Rename `todos` to `items` in the `TodoList` component.
 
-## You end your day and push a WIP commit
+## End your day and push a WIP commit
 
-In case there is a problem with your local commit, you want to push your WIP
-work at the end of the day. Moreover, you don’t have time to think of a better
-name for your commit.
+At the end of the day, that’s interesting to push your code even if it’s still
+WIP.
 
 1. Stage your files on the refactoring.
 
-2. Create your WIP commit:
+2. Create your WIP commit, you don’t bother with the naming:
 
 ```bash
 git commit -m "WIP"
@@ -224,7 +228,7 @@ git commit -m "WIP"
 
 ## Refactor (2/2)
 
-Rename `isCompleted` in the `Todo` model to `isDone`.
+Rename `isCompleted` to `isDone` in the `Todo` model.
 
 ## Melt you changes into the WIP commit
 
@@ -247,7 +251,7 @@ git commit --amend
 This command can be used even if there is no actual staged modifications, in
 order to modify the previous commit message.
 
-## Push it to origin and create a pull request
+## Push to origin and create a pull request
 
 1. Analyze what `git status` tells you.
 
@@ -257,19 +261,19 @@ order to modify the previous commit message.
 git push origin refactor/todo-list
 ```
 
-3. Because you have modified git history that had already been pushed, you have
+3. Because you have modified the history that had already been pushed, you have
    to force your modifications to origin with:
 
 ```bash
 git push --force origin refactor/todo-list
 ```
 
-Beware, a force commit is risky if another person is working in the same branch
-as you.
+Beware, a force commit is risky, you can loose code in the process,
+particularly if another person is working in the same branch as you.
 
 4. Create a pull request.
 
-## Pull request review
+## Review a pull request
 
 1. Review the refactor pull request of the person on your right. Submit a
    comment somewhere and request changes.
@@ -286,4 +290,4 @@ as you.
 - get synced from master
 - gitignore ?
 - git rebase -i ?
-- gitconfig aliases
+- gitconfig aliases (end of the workshop)

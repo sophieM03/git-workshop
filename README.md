@@ -134,7 +134,7 @@ git status
 5. Restage the unstaged files and verify that there have been successfully
    staged.
 
-## Prepare a commit and push it to the remote
+## Prepare a commit and push it to origin
 
 1. Create a commit for your staged files with:
 
@@ -148,7 +148,7 @@ git commit
 - Integrate the project detail page
 - Fix focus on the input component
 
-3. Push your commit to the origin remote with:
+3. Push your commit to origin with:
 
 ```bash
 git push origin feature/arrow
@@ -160,15 +160,15 @@ git push origin feature/arrow
 git remote -v
 ```
 
-## Arrow colorization
+## Colorize the arrow
 
 Colorize in green a number of equals that is the number of completed todos.
 
-## Prepare a new commit and push it to the origin remote
+## Prepare a new commit and push it to origin
 
 - Add the modified files.
 - Commit with an action verb at the beginning of the message.
-- Push it to the origin remote.
+- Push it to origin.
 
 ## Prepare a pull request
 
@@ -202,39 +202,87 @@ git branch refactor/todo-list master
 git checkout refactor/todo-list
 ```
 
-## First refactoring
+## Refactor (1/2)
 
 Rename `todos` to `items`.
 
 ## You end your day and push a WIP commit
 
 In case there is a problem with your local commit, you want to push your WIP
-work at the end of the day.
+work at the end of the day. Moreover, you don’t have time to think of a better
+name for your commit.
 
-1. Add your files.
+1. Stage your files on the refactoring.
 
-2. Push it with a WIP commit with the `-m` shortcut:
+2. Create your WIP commit:
 
 ```bash
 git commit -m "WIP"
 ```
 
-## Second refactoring
+3. Push it to origin.
+
+## Refactor (2/2)
 
 Rename `isCompleted` in the `Todo` model to `isDone`.
 
-## Prepare a new commit and push it to the origin remote
+## Melt you changes into the WIP commit
 
-- Add the modified files.
-- Commit with an action verb at the beginning of the message.
-- Push it to the origin remote.
+1. Stage your files on the refactoring.
+
+2. Check that the previous commit is the WIP commit before melting your staged
+   changes into it.
+
+```bash
+git log --one-line
+```
+
+3. Now that you’re sure that the previous commit is the WIP one, melt your
+   changes into it, and modify the commit message too:
+
+```bash
+git commit --amend
+```
+
+This command can be used even if there is no actual staged modifications, in
+order to modify the previous commit message.
+
+## Push it to origin and create a pull request
+
+1. Analyze what `git status` tells you.
+
+2. Try to push your changes to origin with:
+
+```bash
+git push origin refactor/todo-list
+```
+
+3. Because you have modified git history that had already been pushed, you have
+   to force your modifications to origin with:
+
+```bash
+git push --force origin refactor/todo-list
+```
+
+Beware, a force commit is risky if another person is working in the same branch
+as you.
+
+4. Create a pull request.
+
+## Pull request review
+
+1. Review the refactor pull request of the person on your right. Submit a
+   comment somewhere and request changes.
+
+2. TODO
 
 ## Add a count of deleted arrows
 
-1. TODO
+1. TODO ?
 
 ## TODO
 
-- gitignore
-- git commit --amend (with WIP)
+- git show
+- get synced from master
+- gitignore ?
 - git rebase -i ?

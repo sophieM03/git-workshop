@@ -56,16 +56,20 @@ We are configuring git to use your society email in the folder `path-to-society-
 
 1. Fork `zengularity/git-workshop` from the GitHub interface.
 
-2. Protect the master branch in the GitHub setting of your fork:
+2. In options settings, uncheck `merge commits` and `rebase merging`, keep only
+   `squash commit` checked.
+
+3. In branches settings, protect the master branch in the GitHub setting of
+   your fork:
 
 - from being forced-pushed,
 - from being deleted,
 - require 1 review before merging a branch into master.
 
-3. In the settings, add the person sitting at your left as a collaborator. He
-   will review your pull requests.
+4. In the collaborators settings, add the person sitting at your left. He will
+   review your pull requests.
 
-4. Clone the workshop repository with:
+5. Clone the workshop repository with:
 
 ```bash
 git clone
@@ -97,6 +101,7 @@ git branch
 ```bash
 git branch feature/arrow
 git checkout feature/arrow
+# Can be shorten to: git checkout -b feature/arrow
 ```
 
 ## Add a visualization arrow of the todos
@@ -126,7 +131,8 @@ git status
 
 4. Try `git reset` to unstage files.
 
-5. Restage the unstaged files.
+5. Restage the unstaged files and verify that there have been successfully
+   staged.
 
 ## Prepare a commit and push it to the remote
 
@@ -138,9 +144,9 @@ git commit
 
 2. In the first line, resume your work by beginning with an action verb:
 
-- Add this,
-- Integrate that,
-- Fix this.
+- Add a login banner on the home page
+- Integrate the project detail page
+- Fix focus on the input component
 
 3. Push your commit to the origin remote with:
 
@@ -148,21 +154,87 @@ git commit
 git push origin feature/arrow
 ```
 
-##
+4. You can view your remotes with:
+
+```bash
+git remote -v
+```
+
+## Arrow colorization
 
 Colorize in green a number of equals that is the number of completed todos.
 
+## Prepare a new commit and push it to the origin remote
+
+- Add the modified files.
+- Commit with an action verb at the beginning of the message.
+- Push it to the origin remote.
+
 ## Prepare a pull request
 
-Enter a message beginning with an action verb (Add this, Save that, etc).
+Create a pull request from your branch `feature/arrow` in the GitHub interface.
+But don’t merge it yet, your collaborator is very busy and can’t review right
+now.
 
-2. Create a pull request from your branch `feature/arrow` in the GitHub interface.
+## Refactor the TodoList component
 
-## Refactoring
+You’re gonna refactor the TodoList component.
 
-1. Rename `todos` to `items`.
-2. Reorder the
+## Create a new branch
+
+We’re making refactoring from another branch, that will lead to another pull
+request. This new branch will be based on master, and not on the current
+feature branch you have been working on.
+
+You have 2 options:
+
+1. Option 1:
+
+```bash
+git checkout master
+git checkout -b refactor/todo-list
+```
+
+2. Option 2:
+
+```bash
+git branch refactor/todo-list master
+git checkout refactor/todo-list
+```
+
+## First refactoring
+
+Rename `todos` to `items`.
+
+## You end your day and push a WIP commit
+
+In case there is a problem with your local commit, you want to push your WIP
+work at the end of the day.
+
+1. Add your files.
+
+2. Push it with a WIP commit with the `-m` shortcut:
+
+```bash
+git commit -m "WIP"
+```
+
+## Second refactoring
+
+Rename `isCompleted` in the `Todo` model to `isDone`.
+
+## Prepare a new commit and push it to the origin remote
+
+- Add the modified files.
+- Commit with an action verb at the beginning of the message.
+- Push it to the origin remote.
 
 ## Add a count of deleted arrows
 
-1. foo
+1. TODO
+
+## TODO
+
+- gitignore
+- git commit --amend (with WIP)
+- git rebase -i ?

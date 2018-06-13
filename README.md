@@ -8,8 +8,8 @@ date: \today
 Workshop goal: get good practices contributing code in team with git and GitHub:
 
 - work on branches,
-- submit pull requests for review,
-- keep a clean history.
+- keep a clean history,
+- submit pull requests for review.
 
 You will manipulate on a Scala.js playground.
 
@@ -99,11 +99,64 @@ git branch feature/arrow
 git checkout feature/arrow
 ```
 
-## Add a visualization arrow
+## Add a visualization arrow of the todos
 
-1. Add an arrow `=====>` above the input, the number of equals is the number of
-   todos.
-2. Color in green a number of equals that is the number of completed todos.
+Add an arrow `=====>` above the input, the number of equals is the number of
+todos.
+
+## Stage your files
+
+1. Look at the files you have modified with:
+
+```bash
+git status
+```
+
+2. Add files manually or by group with:
+
+```bash
+git add file-or-directory
+```
+
+3. Look at the files staged for the next commit with:
+
+```bash
+git status
+```
+
+4. Try `git reset` to unstage files.
+
+5. Restage the unstaged files.
+
+## Prepare a commit and push it to the remote
+
+1. Create a commit for your staged files with:
+
+```bash
+git commit
+```
+
+2. In the first line, resume your work by beginning with an action verb:
+
+- Add this,
+- Integrate that,
+- Fix this.
+
+3. Push your commit to the origin remote with:
+
+```bash
+git push origin feature/arrow
+```
+
+##
+
+Colorize in green a number of equals that is the number of completed todos.
+
+## Prepare a pull request
+
+Enter a message beginning with an action verb (Add this, Save that, etc).
+
+2. Create a pull request from your branch `feature/arrow` in the GitHub interface.
 
 ## Refactoring
 

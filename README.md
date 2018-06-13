@@ -286,3 +286,4 @@ as you.
 - get synced from master
 - gitignore ?
 - git rebase -i ?
+- gitconfig aliases

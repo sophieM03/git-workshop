@@ -62,7 +62,10 @@ We are configuring git to use your society email in the folder `path-to-society-
 - from being deleted,
 - require 1 review before merging a branch into master.
 
-3. Clone the workshop repository with:
+3. In the settings, add the person sitting at your left as a collaborator. He
+   will review your pull requests.
+
+4. Clone the workshop repository with:
 
 ```bash
 git clone
@@ -81,10 +84,32 @@ sbt "~fastOptJS"
 
 3. Open `playground/index.html` on your browser.
 
-## Create a local branch
+## Create a branch
 
-1. Check your current branch with:
+1. Check that your current branch is master with:
 
 ```bash
 git branch
 ```
+
+2. Create a branch and move into it with:
+
+```bash
+git branch feature/arrow
+git checkout feature/arrow
+```
+
+## Add a visualization arrow
+
+1. Add an arrow `=====>` above the input, the number of equals is the number of
+   todos.
+2. Color in green a number of equals that is the number of completed todos.
+
+## Refactoring
+
+1. Rename `todos` to `items`.
+2. Reorder the
+
+## Add a count of deleted arrows
+
+1. foo

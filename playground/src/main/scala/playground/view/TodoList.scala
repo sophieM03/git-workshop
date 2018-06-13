@@ -16,12 +16,14 @@ object TodoList {
     val todos: Var[Seq[Todo]] = Var(
       Seq(
         Todo("learn usefull git commands", isCompleted = false),
-        Todo("discover Scala.js", isCompleted = false)
+        Todo("play with Scala.js", isCompleted = false)
       )
     )
 
     lazy val result =
       <div class={ Style.root.htmlClass }>
+        You can add or remove todo items.<br /><br />
+
         { addTodo }
 
         <div class={ Style.presentation.htmlClass }>

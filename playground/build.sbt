@@ -6,8 +6,8 @@ lazy val root = (project in file("."))
     artifactPath in (Compile, fastOptJS) :=
       ((crossTarget in (Compile, fastOptJS)).value / ((moduleName in fastOptJS).value + "-opt.js")),
     libraryDependencies ++= Seq(
-      "com.github.japgolly.scalacss" %%% "core" % "0.5.3",
-      "in.nvilla" %%% "monadic-html" % "0.4.0-RC1"
+      "com.github.japgolly.scalacss" %%% "core"         % "0.5.3",
+      "in.nvilla"                    %%% "monadic-html" % "0.4.0-RC1"
     )
   )
 

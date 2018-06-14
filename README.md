@@ -275,19 +275,46 @@ particularly if another person is working in the same branch as you.
 
 ## Review a pull request
 
-1. Review the refactor pull request of the person on your right. Submit a
-   comment somewhere and request changes.
+Review the refactor pull request of the person on your right. Because you are
+picky, submit a comment to replace `isDone` by `isFinished` and request
+changes.
 
-2. TODO
+## Modify your pull request
+
+The person on your left requested changes on you pull request. Because you
+agree on his comment:
+
+1. replace `isDone` by `isFinished`,
+2. stage your modified files,
+3. create a fix commit,
+4. push it to your branch.
+
+We are creating a fix commit instead of ammending the last one, so that the
+reviewer will see only new changes and will not have to review everything back
+again.
+
+## Approve the pull request
+
+The person on your right made the changes you requested, you can now approve
+his pull request.
+
+## Merge you pull request with squash
+
+The person on your left approved your pull request, it is time to merge it with
+squash. Because you merge it with squash, there will be only one commit in
+master for your modification, and the detail still exists if you need to
+inspect in detail what you did.
 
 ## Add a count of deleted arrows
 
 1. TODO ?
+
+## Git config aliases
+
+TODO
 
 ## TODO
 
 - git show
 - get synced from master
 - gitignore ?
-- git rebase -i ?
-- gitconfig aliases (end of the workshop)

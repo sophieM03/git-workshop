@@ -5,11 +5,12 @@ date: \today
 
 ## Introduction
 
-Workshop goal: get good practices contributing code in team with git and GitHub:
+Workshop goal: get good practices contributing code in team git CLI and GitHub:
 
+- use core git CLI commands,
 - work on branches,
+- submit pull requests for review,
 - keep a clean history,
-- submit pull requests for review.
 
 You will manipulate on a Scala.js playground.
 
@@ -88,22 +89,42 @@ sbt "~fastOptJS"
 
 3. Open `playground/index.html` on your browser.
 
-## Create a branch
+## Get information
 
-1. Check that your current branch is master with:
+1. Get the commits with:
+
+```bash
+git log
+```
+
+or
+
+```bash
+git log --oneline
+```
+
+2. Show the commit content with:
+
+```bash
+git show
+```
+
+3. Get your current branch with:
 
 ```bash
 git branch
 ```
 
-2. Create a branch and move into it with:
+## Create a branch
+
+Create a branch and move into it with:
 
 ```bash
 git branch feature/arrow
 git checkout feature/arrow
 ```
 
-Those command can be shorten to:
+Those two commands can be shorten to one command:
 
 ```bash
 git checkout -b feature/arrow
@@ -122,22 +143,35 @@ todos.
 git status
 ```
 
-2. Add files manually or by group with:
+2. Look at your unstaged modification with:
+
+```bash
+git diff
+```
+
+3. Add files manually or by group with:
 
 ```bash
 git add file-or-directory
 ```
 
-3. Look at the files staged for the next commit with:
+4. If you have added a file by error, you can unstage it with:
+
+```bash
+git reset file-or-directory
+```
+
+5. Look at the files staged for the next commit with:
 
 ```bash
 git status
 ```
 
-4. Try `git reset` to unstage files.
+6. Look at your staged modifications with:
 
-5. Restage the unstaged files and verify that there have been successfully
-   staged.
+```bash
+git diff --staged
+```
 
 ## Prepare a commit and push it to origin
 
@@ -179,9 +213,23 @@ of completed todos.
 
 ## Prepare a pull request
 
-Create a pull request from your branch `feature/arrow` in the GitHub interface,
-but don’t merge it yet, your collaborator is very busy and can’t review right
-now.
+1. Create a pull request from your branch `feature/arrow` in the GitHub
+   interface. Your collaborator will review it later.
+
+2. Give it a title resuming your modification.
+
+3. You can give more information in the description if necessary.
+
+4. Add a *Quality Insurance* scenario in the description which indicate
+   precisely the steps to check if your feature is valid or no.
+
+```
+**QA**
+
+1. Go here and add this,
+2. you should see that,
+3. etc.
+```
 
 ## Refactor the TodoList component
 
@@ -238,7 +286,7 @@ Rename `isCompleted` to `isDone` in the `Todo` model.
    changes into it.
 
 ```bash
-git log --one-line
+git log
 ```
 
 3. Now that you’re sure that the previous commit is the WIP one, melt your
@@ -268,10 +316,10 @@ git push origin refactor/todo-list
 git push --force origin refactor/todo-list
 ```
 
-Beware, a force commit is risky, you can loose code in the process,
-particularly if another person is working in the same branch as you.
+Beware, a force commit is risky, you can loose code in the process.
 
-4. Create a pull request.
+4. Create a pull request from the GitHub interface, and think about the title
+   and the description, which should contains a QA.
 
 ## Review a pull request
 
@@ -298,17 +346,47 @@ again.
 The person on your right made the changes you requested, you can now approve
 his pull request.
 
-## Merge you pull request with squash
+## Merge your pull request with squash
 
-The person on your left approved your pull request, it is time to merge it with
-squash. Because you merge it with squash, there will be only one commit in
-master for your modification, and the detail still exists if you need to
-inspect in detail what you did.
+Now that your pull request is approved:
+
+1. merge it with squash,
+
+2. Prepare a well-formed commit message:
+
+- the first line is:
+    - a resume of your modification,
+    - it begins with an action verb,
+- the rest is a detail of your modifications:
+    - it can contain a list of modifications begining with `-` or `*`,
+    - it can link to un issue with its URL.
+
+3. check that you can still access to every commit you did in the GitHub
+   interface,
+
+## Get the changes on master on your machine
+
+1. Go to the master branch and get synchronized with origin/master with:
+
+```bash
+git checkout master
+git fetch
+git merge origin/master
+```
+
+2. Check that you refactor is in a single commit.
+
+3. Delete your feature branch with:
+
+```bash
+git branch -d refactor/todo-list
+```
 
 ## Going back to the visualization arrow
 
 We want to merge our visualization arrow feature. Unfortunately, our feature
-now has conflicts with the master branch.
+now has conflicts with the master branch. We have the choice between rebasing
+and merging.
 
 ## Rebasing vs. merging
 
@@ -320,32 +398,28 @@ That means:
 
 - it can be more complex if we have multiple commits,
 - we have to change the history,
-- but that will lead to a cleaner history.
+- but that will lead to a cleaner history afterward.
 
-## Resolve the conflicts
+## Rebase and resolve the conflicts
 
 1. Go to the feature branch.
 
-2. Get distant changes with:
+2. Get distant changes and rebase from master with:
 
 ```bash
 git fetch
-```
-
-3. Rebase the feature branch from master:
-
-```bash
 git rebase origin/master
 ```
 
-4. All the parts in conflict have been marked on your files, resolve them. Your
-   feature modifications are above the master modifications. Identify the
-   modification on each part, and make sure to keep the two of them when you’re
-   making the final version.
+3. All the parts in conflict have been marked on your files, resolve them.
+
+Your feature modifications are above the master modifications. Identify the
+modification on each part, and make sure to keep the two of them when you’re
+making the final version.
 
 ## Finalize the rebase
 
-1. Add your modified files
+1. Add your modified files.
 
 2. Continue the rebase with:
 
@@ -356,23 +430,24 @@ git rebase --continue
 The rebase will continue to be applied on the next commits, but because we have
 only one commit, the rebase is now done.
 
-3. Check that the project compile successfully, and that the visualization
+3. Check that the project compiles successfully, and that the visualization
    arrow still works.
 
 4. Push force your branch to origin.
 
 ## Pull request validation
 
-Do the same as previously:
+Do the same as with the other pull request:
 
 1. validate the pull request of the person on your right,
 2. and your pull request is validated, merge it.
 
 ## Git config aliases
 
-TODO
+You can add git aliases in `.gitconfig`, for example:
 
-## TODO
-
-- git show
-- gitignore ?
+```gitconfig
+[alias]
+  tree = log --graph --oneline
+  p = push origin HEAD
+```

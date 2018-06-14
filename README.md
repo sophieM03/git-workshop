@@ -305,9 +305,68 @@ squash. Because you merge it with squash, there will be only one commit in
 master for your modification, and the detail still exists if you need to
 inspect in detail what you did.
 
-## Add a count of deleted arrows
+## Going back to the visualization arrow
 
-1. TODO ?
+We want to merge our visualization arrow feature. Unfortunately, our feature
+now has conflicts with the master branch.
+
+## Rebasing vs. merging
+
+We’ll use rebase instead of merge. Instead of having a merge commit, we move
+the entire branch to begin on the tip of the branch we rebase from. See more
+detail [here](https://www.atlassian.com/git/tutorials/merging-vs-rebasing).
+
+That means:
+
+- it can be more complex if we have multiple commits,
+- we have to change the history,
+- but that will lead to a cleaner history.
+
+## Resolve the conflicts
+
+1. Go to the feature branch.
+
+2. Get distant changes with:
+
+```bash
+git fetch
+```
+
+3. Rebase the feature branch from master:
+
+```bash
+git rebase origin/master
+```
+
+4. All the parts in conflict have been marked on your files, resolve them. Your
+   feature modifications are above the master modifications. Identify the
+   modification on each part, and make sure to keep the two of them when you’re
+   making the final version.
+
+## Finalize the rebase
+
+1. Add your modified files
+
+2. Continue the rebase with:
+
+```bash
+git rebase --continue
+```
+
+The rebase will continue to be applied on the next commits, but because we have
+only one commit, the rebase is now done.
+
+3. Check that the project compile successfully, and that the visualization
+   arrow still works.
+
+4. Push force your branch to origin.
+
+## Pull request validation
+
+Do the same as previously:
+
+1. validate the pull request of the person on your right,
+2. and your pull request is validated, merge it.
 
 ## Git config aliases
 
@@ -316,5 +375,4 @@ TODO
 ## TODO
 
 - git show
-- get synced from master
 - gitignore ?

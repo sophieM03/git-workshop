@@ -5,9 +5,9 @@ date: \today
 
 ## Introduction
 
-Workshop goal: get good practices contributing code in team git CLI and GitHub:
+Workshop goal: get good practices contributing code in team with git and GitHub:
 
-- use core git CLI commands,
+- use core git commands,
 - work on branches,
 - submit pull requests for review,
 - keep a clean history,
@@ -18,13 +18,18 @@ You will manipulate on a Scala.js playground.
 
 1. Create a GitHub account attached to your society.
 
-2. Create its key `~/.ssh/id_rsa_society` that will be attached to your account:
+2. Update your account avatar, it will be easier for your collaborators to
+   identify you.
+
+## Create an SSH key and attach it to your account
+
+1. Create the key `~/.ssh/id_rsa_society` that will be attached to your account:
 
 ```bash
 ssh-keygen -t rsa -b 4096 -C "mail@society.com"
 ```
 
-3. Add `society.github.com` host to your ssh config:
+2. Add `society.github.com` host to your ssh config:
 
 ```sshconfig
 Host society.github.com
@@ -32,12 +37,13 @@ Host society.github.com
   IdentityFile ~/.ssh/id_rsa_society
 ```
 
-4. Attach your public key `~/.ssh/id_rsa_society.pub` to your GitHub account
+3. Attach your public key `~/.ssh/id_rsa_society.pub` to your GitHub account
    from the GitHub interface.
 
 ## Setup your git configuration
 
-We are configuring git to use your society email in the folder `path-to-society-apps/`.
+You are configuring git to use your society email in the folder
+`path-to-society-apps/`.
 
 1. Create `path-to-society-apps/.gitconfig`:
 
@@ -70,40 +76,34 @@ We are configuring git to use your society email in the folder `path-to-society-
 4. In the collaborators settings, add the person sitting at your left. He will
    review your pull requests.
 
-5. Clone the workshop repository with:
+## Setup the playground
+
+1. Clone the workshop repository with:
 
 ```bash
 git clone
   git@society.github.com:your-username/git-workshop
 ```
 
-## Setup the playground
+2. Install sbt.
 
-1. Install sbt.
-
-2. Inside the `playground` directory, launch the playground with:
+3. Inside the `playground` directory, launch the playground with:
 
 ```bash
 sbt "~fastOptJS"
 ```
 
-3. Open `playground/index.html` on your browser.
+4. Open `playground/index.html` on your browser.
 
-## Get information
+## Get repository information on the CLI
 
 1. Get the commits with:
 
 ```bash
-git log
+git log # or git log --oneline
 ```
 
-or
-
-```bash
-git log --oneline
-```
-
-2. Show the commit content with:
+2. Show the last commit content with:
 
 ```bash
 git show
@@ -114,6 +114,10 @@ git show
 ```bash
 git branch
 ```
+
+## Add a new feature
+
+You are going to add an arrow which length is the number of todos.
 
 ## Create a branch
 
@@ -132,10 +136,14 @@ git checkout -b feature/arrow
 
 ## Add a visualization arrow of the todos
 
-Add an arrow `=====>` above the input, the number of equals is the number of
+Add an ascii arrow above the input, the number of equals is the number of
 todos.
 
-## Stage your files
+`=====>`
+
+In the example above, we would have 5 todos.
+
+## When you’re done, stage your files
 
 1. Look at the files you have modified with:
 
@@ -143,7 +151,7 @@ todos.
 git status
 ```
 
-2. Look at your unstaged modification with:
+2. Look at your unstaged modifications with:
 
 ```bash
 git diff
@@ -152,28 +160,23 @@ git diff
 3. Add files manually or by group with:
 
 ```bash
-git add file-or-directory
+git add file-or-directory # git reset … to undo
 ```
 
-4. If you have added a file by error, you can unstage it with:
 
-```bash
-git reset file-or-directory
-```
-
-5. Look at the files staged for the next commit with:
+4. Look at the files staged for the next commit with:
 
 ```bash
 git status
 ```
 
-6. Look at your staged modifications with:
+5. Look at your staged modifications with:
 
 ```bash
 git diff --staged
 ```
 
-## Prepare a commit and push it to origin
+## Prepare a commit
 
 1. Create a commit for your staged files with:
 
@@ -181,40 +184,50 @@ git diff --staged
 git commit
 ```
 
-2. The command above let you write the commit message, resume your work by
-   beginning with an action verb, like this:
+2. The command above open an editor which let you write the commit message,
+   resume your work by beginning with an action verb, like this:
 
 - Add a login banner on the home page
 - Integrate the project detail page
 - Fix focus on the input component
 
-3. Push your commit to origin with:
+3. If you need to, add a description after a blank line.
+
+## Push your commit to your repository
+
+1. Push your commit to origin with:
 
 ```bash
 git push origin feature/arrow
 ```
 
-4. You can view your remotes with:
+2. In the command above, `origin` is the remote uri of your repository. You
+   could have other remotes. Check your repository uri with:
 
 ```bash
 git remote -v
 ```
 
-## Colorize the arrow
+## Improve the arrow
+
+You want to improve the arrow so that it give the information of done todos.
 
 Colorize in green the number of equals in the arrow corresponding to the number
 of completed todos.
 
 ## Prepare a new commit and push it to origin
 
-- Add the modified files.
-- Commit with an action verb at the beginning of the message.
-- Push it to origin.
+1. Add the modified files,
+
+2. commit by following the last notice,
+
+3. push it to origin.
 
 ## Prepare a pull request
 
-1. Create a pull request from your branch `feature/arrow` in the GitHub
-   interface. Your collaborator will review it later.
+1. Create a pull request from `feature/arrow` in the GitHub interface. Because
+   you have made a fork, the destination is `zengularity/git-workflow`, change
+   it to your repository `username/git-workflow`.
 
 2. Give it a title resuming your modification.
 
@@ -231,9 +244,10 @@ of completed todos.
 3. etc.
 ```
 
-## Refactor the TodoList component
+## Unfortunately, your collaborator is busy
 
-You’re gonna refactor the TodoList component.
+Because you need 1 review, you can’t merge your pull request yet. So, you’re
+gonna do another thing: refactor the TodoList component.
 
 ## Create a new branch
 
@@ -323,8 +337,8 @@ Beware, a force commit is risky, you can loose code in the process.
 
 ## Review a pull request
 
-Review the refactor pull request of the person on your right. Because you are
-picky, submit a comment to replace `isDone` by `isFinished` and request
+Review the **refactor** pull request of the person on your right. Because you
+are picky, submit a comment to replace `isDone` by `isFinished` and request
 changes.
 
 ## Modify your pull request
@@ -337,20 +351,20 @@ agree on his comment:
 3. create a fix commit,
 4. push it to your branch.
 
-We are creating a fix commit instead of ammending the last one, so that the
+You are creating a fix commit instead of ammending the last one, so that the
 reviewer will see only new changes and will not have to review everything back
 again.
 
 ## Approve the pull request
 
-The person on your right made the changes you requested, you can now approve
-his pull request.
+The person on your right made the changes you requested, you can approve his
+pull request.
 
 ## Merge your pull request with squash
 
 Now that your pull request is approved:
 
-1. merge it with squash,
+1. click on “merge with squash”,
 
 2. Prepare a well-formed commit message:
 
@@ -384,20 +398,20 @@ git branch -d refactor/todo-list
 
 ## Going back to the visualization arrow
 
-We want to merge our visualization arrow feature. Unfortunately, our feature
-now has conflicts with the master branch. We have the choice between rebasing
+You want to merge your visualization arrow feature. Unfortunately, your feature
+now has conflicts with the master branch. You have the choice between rebasing
 and merging.
 
 ## Rebasing vs. merging
 
-We’ll use rebase instead of merge. Instead of having a merge commit, we move
-the entire branch to begin on the tip of the branch we rebase from. See more
-detail [here](https://www.atlassian.com/git/tutorials/merging-vs-rebasing).
+You’ll use rebase instead of merge. Instead of having a merge commit, you move
+the entire branch to begin on the tip of the branch you rebase from. See more
+details [here](https://www.atlassian.com/git/tutorials/merging-vs-rebasing).
 
 That means:
 
-- it can be more complex if we have multiple commits,
-- we have to change the history,
+- it can be more complex if you have multiple commits,
+- you have to change the history,
 - but that will lead to a cleaner history afterward.
 
 ## Rebase and resolve the conflicts
@@ -427,7 +441,7 @@ making the final version.
 git rebase --continue
 ```
 
-The rebase will continue to be applied on the next commits, but because we have
+The rebase will continue to be applied on the next commits, but because you have
 only one commit, the rebase is now done.
 
 3. Check that the project compiles successfully, and that the visualization
@@ -437,12 +451,10 @@ only one commit, the rebase is now done.
 
 ## Pull request validation
 
-Do the same as with the other pull request:
+You now have time to check the **arrow** pull request of the person on your
+right. Whenever your pull request is validated, merge it.
 
-1. validate the pull request of the person on your right,
-2. and your pull request is validated, merge it.
-
-## Git config aliases
+## Being faster with git config aliases
 
 You can add git aliases in `.gitconfig`, for example:
 
@@ -450,4 +462,12 @@ You can add git aliases in `.gitconfig`, for example:
 [alias]
   tree = log --graph --oneline
   p = push origin HEAD
+```
+
+## RTFM
+
+```bash
+man git branch
+man git rebase
+…
 ```

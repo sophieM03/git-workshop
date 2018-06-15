@@ -412,6 +412,7 @@ That means:
 
 - it can be more complex if you have multiple commits,
 - you have to change the history,
+   - you risk (when handling conflicts) to introduce unwanted changes while losing the original (valid) changes forever,
 - but that will lead to a cleaner history afterward.
 
 ## Rebase and resolve the conflicts

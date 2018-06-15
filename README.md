@@ -130,7 +130,7 @@ You are going to add an arrow which length is the number of todos.
 Create a branch and move into it with:
 
 ```bash
-git checkout -b feature/arrow
+git checkout -b arrow
 ```
 
 ## Add a visualization arrow of the todos
@@ -196,7 +196,7 @@ git commit
 1. Push your commit to origin with:
 
 ```bash
-git push origin feature/arrow
+git push origin arrow
 ```
 
 2. In the command above, `origin` is the remote URI of your repository. You
@@ -206,12 +206,86 @@ git push origin feature/arrow
 git remote -v
 ```
 
+## Rename a branch locally and remotely
+
+A developer on the team informs you that you didn’t follow project’s branch
+naming conventions:
+
+- feature/user-login
+- fix/server-routes
+- refactor/todo-model
+
+1. Rename your local branch with:
+
+```bash
+git branch -m arrow feature/arrow
+```
+
+2. Rename your remote branch with:
+
+```bash
+git push -d origin arrow # delete,
+git push origin feature/arrow # then create
+```
+
 ## Improve the arrow
 
 You want to improve the arrow so that it give the information of done todos.
 
 Colorize in green the number of equals in the arrow corresponding to the number
 of completed todos.
+
+Don’t add your files nor make a commit at this point.
+
+## Unexpected demo
+
+You forgot but you have a demo to present. You did not have time to test your
+work and prefer to show the previous version. You’ll use the stash feature to
+put your current work aside for the moment.
+
+## Stash your files
+
+1. Check that your stash is actually empty with:
+
+```bash
+git stash list
+```
+
+2. Stash your files with:
+
+```bash
+git stash
+```
+
+3. Look at the output of:
+
+```bash
+git status
+```
+
+4. Check that your stash has ben added with:
+
+```bash
+git stash list
+```
+
+5. Check that your arrow is all in black.
+
+## Unstash your files
+
+The demo was a success!
+
+1. Unstash you files with:
+
+```bash
+git stash pop
+```
+
+2. Check that your last modified files are back available with:
+
+```bash
+git status
+```
 
 ## Prepare a new commit and push it to origin
 
@@ -367,7 +441,9 @@ Now that your pull request is approved:
     - it can contain a list of modifications begining with `-` or `*`,
     - it can link to un issue with its URL.
 
-3. Check that you can still access to every commit you did in the GitHub
+3. Merge the pull request and then delete the branch with the provided button.
+
+4. Check that you can still access to every commit you did in the GitHub
    interface.
 
 ## Get the changes on master on your machine
@@ -463,7 +539,7 @@ You can add git aliases in `.gitconfig`, for example:
   p = push origin HEAD
 ```
 
-## RTFM
+## Read the manual
 
 ```bash
 man git branch
@@ -473,5 +549,4 @@ man git rebase
 
 ## TODO
 
-- Rename branch both locally and remotly
-- git stash scenario
+- gitignore (touch DS_Store, before the first commit) ~/.git/config/exclude

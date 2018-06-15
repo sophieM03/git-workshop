@@ -313,7 +313,7 @@ Oops, you committed and pushed .DS_Store!
 git reset --soft HEAD^ # or HEAD~1
 ```
 
-2. Check the status with:
+2. Check the current status.
 
 3. Unstage `.DS_Store` with:
 

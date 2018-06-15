@@ -85,7 +85,7 @@ git clone
   git@society.github.com:your-username/git-workshop
 ```
 
-2. Install sbt.
+2. Install [SBT](https://www.scala-sbt.org/).
 
 3. Inside the `playground` directory, launch the playground with:
 
@@ -97,22 +97,28 @@ sbt "~fastOptJS"
 
 ## Get repository information on the CLI
 
-1. Get the commits with:
+1. List the previous commits with:
 
 ```bash
 git log # or git log --oneline
 ```
 
-2. Show the last commit content with:
+2. Show the details (diff) of the last commit with:
 
 ```bash
 git show
 ```
 
-3. Get your current branch with:
+3. List the local branches:
 
 ```bash
 git branch
+```
+
+4. List all the branches (with remote):
+
+```bash
+git branch -a
 ```
 
 ## Add a new feature
@@ -124,24 +130,17 @@ You are going to add an arrow which length is the number of todos.
 Create a branch and move into it with:
 
 ```bash
-git branch feature/arrow
-git checkout feature/arrow
-```
-
-Those two commands can be shorten to one command:
-
-```bash
 git checkout -b feature/arrow
 ```
 
 ## Add a visualization arrow of the todos
 
-Add an ascii arrow above the input, the number of equals is the number of
-todos.
+Above the input which let you add todos, add an arrow `=====>`, with the number
+of equals corresponding to the number of todos.
 
-`=====>`
-
-In the example above, we would have 5 todos.
+1. Initially 4 todos: `====>`
+2. A todo is added: `=====>`
+3. 2 todos are removed: `===>`
 
 ## When you’re done, stage your files
 
@@ -163,11 +162,10 @@ git diff
 git add file-or-directory # git reset … to undo
 ```
 
-
 4. Look at the files staged for the next commit with:
 
 ```bash
-git status
+git status # The files added previously should be listed
 ```
 
 5. Look at your staged modifications with:
@@ -201,8 +199,8 @@ git commit
 git push origin feature/arrow
 ```
 
-2. In the command above, `origin` is the remote uri of your repository. You
-   could have other remotes. Check your repository uri with:
+2. In the command above, `origin` is the remote URI of your repository. You
+   could have other remotes. Check your repository URI with:
 
 ```bash
 git remote -v
@@ -217,11 +215,13 @@ of completed todos.
 
 ## Prepare a new commit and push it to origin
 
-1. Add the modified files,
+1. Use a shortcut to add and commit your file:
 
-2. commit by following the last notice,
+```bash
+git commit -a
+```
 
-3. push it to origin.
+2. Push it to origin.
 
 ## Prepare a pull request
 
@@ -255,18 +255,9 @@ You’ll refactor changes from another branch, this will lead to another pull
 request. This new branch will be based on master, and not on the current
 feature branch you have been working on.
 
-You have 2 options:
-
 ```bash
 git checkout master
 git checkout -b refactor/todo-list
-```
-
-or
-
-```bash
-git branch refactor/todo-list master
-git checkout refactor/todo-list
 ```
 
 ## Refactor (1/2)
@@ -300,7 +291,7 @@ Rename `isCompleted` to `isDone` in the `Todo` model.
    changes into it.
 
 ```bash
-git log
+git log -n 1 # Must show the WIP commit
 ```
 
 3. Now that you’re sure that the previous commit is the WIP one, melt your
@@ -323,7 +314,7 @@ order to modify the previous commit message.
 git push origin refactor/todo-list
 ```
 
-3. Because you have modified the history that had already been pushed, you have
+3. Because you have modified the branch history that had already been pushed, you have
    to force your modifications to origin with:
 
 ```bash
@@ -333,7 +324,8 @@ git push --force origin refactor/todo-list
 Beware, a force commit is risky, you can loose code in the process.
 
 4. Create a pull request from the GitHub interface, and think about the title
-   and the description, which should contains a QA.
+   and the description, which should contains a QA. Don’t forget to target your
+   fork and not `zengularity/git-workflow`.
 
 ## Review a pull request
 
@@ -368,15 +360,15 @@ Now that your pull request is approved:
 
 2. Prepare a well-formed commit message:
 
-- the first line is:
-    - a resume of your modification,
-    - it begins with an action verb,
-- the rest is a detail of your modifications:
+- The first line is:
+    - a summary of your modification,
+    - it begins with an action verb.
+- The rest is a detail of your modifications:
     - it can contain a list of modifications begining with `-` or `*`,
     - it can link to un issue with its URL.
 
-3. check that you can still access to every commit you did in the GitHub
-   interface,
+3. Check that you can still access to every commit you did in the GitHub
+   interface.
 
 ## Get the changes on master on your machine
 
@@ -384,11 +376,10 @@ Now that your pull request is approved:
 
 ```bash
 git checkout master
-git fetch
-git merge origin/master
+git pull
 ```
 
-2. Check that you refactor is in a single commit.
+2. Check that you refactor is in a single commit on your local master branch.
 
 3. Delete your feature branch with:
 
@@ -410,27 +401,34 @@ details [here](https://www.atlassian.com/git/tutorials/merging-vs-rebasing).
 
 That means:
 
-- it can be more complex if you have multiple commits,
-- you have to change the history,
+- it can be more complex than merging if you have multiple commits,
+- and you have to change the history :
    - you risk (when handling conflicts) to introduce unwanted changes while losing the original (valid) changes forever,
-- but that will lead to a cleaner history afterward.
+- but that will lead to a cleaner history,
+- and you’ll avoid strange and repetitive merge conflicts in case you merge
+  multiple times.
 
 ## Rebase and resolve the conflicts
 
 1. Go to the feature branch.
 
-2. Get distant changes and rebase from master with:
+```bash
+git checkout ...
+```
+
+2. Get remote changes and rebase from master with:
 
 ```bash
 git fetch
 git rebase origin/master
 ```
 
-3. All the parts in conflict have been marked on your files, resolve them.
+3. All the parts in conflict have been marked on your files, resolve them. You
+   can use:
 
-Your feature modifications are above the master modifications. Identify the
-modification on each part, and make sure to keep the two of them when you’re
-making the final version.
+   - your raw editor,
+   - your editor merge tool,
+   - `git mergetool` (with vim, nvim, meld, …).
 
 ## Finalize the rebase
 
@@ -472,3 +470,8 @@ man git branch
 man git rebase
 …
 ```
+
+## TODO
+
+- Rename branch both locally and remotly
+- git stash scenario

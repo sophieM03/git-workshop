@@ -289,13 +289,60 @@ git status
 
 ## Prepare a new commit and push it to origin
 
-1. Use a shortcut to add and commit your file:
+1. Let’s say you are using macOS, create `.DS_Store` in the repository with:
+
+```bash
+touch .DS_Store
+```
+
+2. Use a shortcut to add and commit your files:
 
 ```bash
 git commit -a
 ```
 
 2. Push it to origin.
+
+## Remove .DS_Store from your commit
+
+Oops, you committed and pushed .DS_Store!
+
+1. Undo the last commit with:
+
+```bash
+git reset --soft HEAD^ # or HEAD~1
+```
+
+2. Check the status with:
+
+3. Unstage `.DS_Store` with:
+
+```bash
+git reset .DS_Store
+```
+
+4. Commit back with:
+
+```bash
+git commit -c ORIG_HEAD
+```
+
+5. Push it to origin with `--force`.
+
+## Gitignore
+
+You want to be sure `.DS_Store` is not committed the next time. You could add
+it to either:
+
+- the project `.gitignore`,
+- or the global `~/.gitignore`.
+
+Since `.DS_Store` is specific to `macOS` users and not to the project, you are going to exclude it globally.
+
+```bash
+echo ".DS_Store" >> ~/.gitignore
+git config --global core.excludesfile '~/.gitignore'
+```
 
 ## Prepare a pull request
 
@@ -546,7 +593,3 @@ man git branch
 man git rebase
 …
 ```
-
-## TODO
-
-- gitignore (touch DS_Store, before the first commit) ~/.git/config/exclude

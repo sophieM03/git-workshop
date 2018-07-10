@@ -1,6 +1,12 @@
 ---
 title: Git workshop
 date: \today
+fontsize: 11pt
+monofont: Menlo
+mainfont: Avenir
+header-includes:
+- \usepackage{pandoc-solarized}
+- \input{beamer-includes}
 ---
 
 ## Introduction

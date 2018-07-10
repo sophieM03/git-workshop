@@ -252,9 +252,9 @@ git push origin feature/arrow # then create
 
 ## Improve the arrow
 
-You want to improve the arrow so that it give the information of done todos.
+Still on the `feature/arrow` branch, you want to improve the arrow so that it give the information of done todos.
 
-Colorize in green the number of equals in the arrow corresponding to the number
+The goal is to colorize in green the number of equals in the arrow corresponding to the number
 of completed todos.
 
 The previously added "arrow" `div` can be updated as bellow.
@@ -329,13 +329,16 @@ git status
 touch .DS_Store
 ```
 
-2. Use a shortcut to add and commit your files:
+2. Using `git status` will indicate this newly created file is untracked.
+
+3. Add the file and commit it.
 
 ```bash
-git commit -a
+git add .DS_Store
+git commit
 ```
 
-2. Push it to origin.
+4. Push it to origin.
 
 ## Remove .DS_Store from your commit
 
@@ -347,9 +350,9 @@ Oops, you committed and pushed .DS_Store!
 git reset --soft HEAD^ # or HEAD~1
 ```
 
-2. Check the current status.
+2. At this point, `git status` indicates that the change about `.DS_Store` is back to be commited.
 
-3. Unstage `.DS_Store` with:
+3. In order to full unstage `.DS_Store`:
 
 ```bash
 git reset .DS_Store
@@ -371,12 +374,14 @@ it to either:
 - the project `.gitignore`,
 - or the global `~/.gitignore`.
 
-Since `.DS_Store` is specific to `macOS` users and not to the project, you are going to exclude it globally.
+Since `.DS_Store` is specific to Mac OS X users and not to the project, you are going to exclude it globally.
 
 ```bash
 echo ".DS_Store" >> ~/.gitignore
 git config --global core.excludesfile '~/.gitignore'
 ```
+
+> Note: Ignore rules specific to some environment (e.g. according the IDE) could rather be specified in the `.git/info/exclude`
 
 ## Prepare a pull request
 
@@ -388,7 +393,7 @@ git config --global core.excludesfile '~/.gitignore'
 
 3. You can give more information in the description if necessary.
 
-4. Add a *Quality Insurance* scenario in the description which indicate
+4. Add a *Quality Assurance* (QA) scenario in the description which indicate
    precisely the steps to check if your feature is valid or no.
 
 ```
@@ -415,22 +420,27 @@ git checkout master
 git checkout -b refactor/todo-list
 ```
 
+> It's recommanded not to create branch based on other previously created feature or task branch.
+
 ## Refactor (1/2)
 
-Rename `todos` to `items` in the `TodoList` component.
+Rename the `val todos` to `items` in the `TodoList` component 
+(see `playground/src/main/scala/playground/view/TodoList.scala`).
 
 ## End your day and push a WIP commit
 
 At the end of the day, that’s interesting to push your code even if it’s still
 WIP.
 
-1. Stage your files on the refactoring.
+1. Stage your files on the refactoring (`git add ...`).
 
-2. Create your WIP commit, you don’t bother with the naming:
+2. Create your WIP commit, you don’t bother with the naming.
 
 ```bash
 git commit -m "WIP"
 ```
+
+> As the file is already under SCM, `git commit -a -m "WIP"` could be used without prio `git add`
 
 3. Push it to origin.
 
@@ -440,7 +450,7 @@ Rename `isCompleted` to `isDone` in the `Todo` model.
 
 ## Melt you changes into the WIP commit
 
-1. Stage your files on the refactoring.
+1. Stage your files on the refactoring (`git add ...`).
 
 2. Check that the previous commit is the WIP commit before melting your staged
    changes into it.
@@ -476,7 +486,7 @@ git push origin refactor/todo-list
 git push --force origin refactor/todo-list
 ```
 
-Beware, a force commit is risky, you can loose code in the process.
+Beware, a force commit is risky, and should not be used outside feature branches.
 
 4. Create a pull request from the GitHub interface, and think about the title
    and the description, which should contains a QA. Don’t forget to target your

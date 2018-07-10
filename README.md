@@ -69,8 +69,8 @@ You are configuring git to use your society email in the folder
 
 1. Fork `zengularity/git-workshop` from the GitHub interface.
 
-2. In options settings, uncheck `merge commits` and `rebase merging`, keep only
-   `squash commit` checked.
+2. In the repository settings, under "Merge button" section, uncheck `merge commits` and `rebase merging`, 
+   and keep only `squash commit` checked.
 
 3. In branches settings, protect the master branch in the GitHub setting of
    your fork:
@@ -99,7 +99,9 @@ git clone
 sbt "~fastOptJS"
 ```
 
-4. Open `playground/index.html` on your browser.
+4. Open `playground/index.html` on your browser: file:///path/to/git-workshop/playground/index.html
+
+This will display a minimal UI, to manage a To-Do list.
 
 ## Get repository information on the CLI
 
@@ -129,7 +131,7 @@ git branch -a
 
 ## Add a new feature
 
-You are going to add an arrow which length is the number of todos.
+You are going to add an arrow whose length is the number of todos.
 
 ## Create a branch
 
@@ -141,12 +143,22 @@ git checkout -b arrow
 
 ## Add a visualization arrow of the todos
 
-Above the input which let you add todos, add an arrow `=====>`, with the number
-of equals corresponding to the number of todos.
+First open the source of the view to be updated: `playground/src/main/scala/playground/view/TodoList.scala`
 
-1. Initially 4 todos: `====>`
-2. A todo is added: `=====>`
-3. 2 todos are removed: `===>`
+Above the input field which let you add todos (see `addTodo` in the code), update the template so a `<div>` is added, with an "arrow" `=====>` as textual content.
+
+The goal is to have a number of `=` character in this "arrow" which corresponds to the number of todos (see the `todos` variables in the code).
+
+1. Initially 2 todos: `==>`
+2. A todo is added (3): `===>`
+3. 2 todos are removed: `==>`
+
+> See the `ul` element in the code (and the `todoItem` function) to figure out how the reactive list (`Rx`) is done.
+> A possible code to add the expected `div` can be as bellow.
+
+```html
+<div>{ todos.map(_.map(_ => '=').mkString) }></div>
+```
 
 ## When you’re done, stage your files
 
@@ -197,6 +209,8 @@ git commit
 
 3. If you need to, add a description after a blank line.
 
+> If you want to commit files which were already added, `git commit -a` can be used without calling `git add`.
+
 ## Push your commit to your repository
 
 1. Push your commit to origin with:
@@ -234,12 +248,26 @@ git push -d origin arrow # delete,
 git push origin feature/arrow # then create
 ```
 
+> Note: It's not recommanded to rename a branch after a Pull Request has already been created.
+
 ## Improve the arrow
 
 You want to improve the arrow so that it give the information of done todos.
 
 Colorize in green the number of equals in the arrow corresponding to the number
 of completed todos.
+
+The previously added "arrow" `div` can be updated as bellow.
+
+```html
+<div>{ todos.map(_.map { item =>
+  val color = if (item.isCompleted) "green" else "silver"
+
+  <span style={s"color:$color"}>=</span>
+}) }></div>
+```
+
+> In order to test this change, update the `val todos` in the code to set `isCompleted = true` for one of the initial items, and then check it's properly displayed in the UI.
 
 Don’t add your files nor make a commit at this point.
 
@@ -295,7 +323,7 @@ git status
 
 ## Prepare a new commit and push it to origin
 
-1. Let’s say you are using macOS, create `.DS_Store` in the repository with:
+1. Let’s say you are using Mac OS X, create `.DS_Store` in the repository with:
 
 ```bash
 touch .DS_Store

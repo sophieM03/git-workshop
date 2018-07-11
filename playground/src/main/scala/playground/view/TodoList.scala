@@ -23,7 +23,7 @@ object TodoList {
     lazy val result =
       <div class={ Style.root.htmlClass }>
         You can add or remove todo items.<br /><br />
-
+        <div>{ arrow }></div>
         { addTodo }
 
         <div class={ Style.presentation.htmlClass }>
@@ -36,6 +36,13 @@ object TodoList {
           } ) }
         </ul>
       </div>
+
+    lazy val arrow = items.map(
+      _.map { item =>
+        val className = if (item.isFinished) Style.arrowCompleted else Style.arrowNotCompleted
+        <span class={className.htmlClass}>=</span>
+      }
+    )
 
     lazy val addTodo =
       <input
@@ -107,6 +114,14 @@ object TodoList {
 
   object Style extends StyleSheet.Inline {
     import dsl._
+
+    val arrowCompleted = style(
+      color(green)
+    )
+
+    val arrowNotCompleted = style(
+      color(black)
+    )
 
     val root = style(
       margin(3.em)

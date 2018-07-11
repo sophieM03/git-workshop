@@ -37,7 +37,12 @@ object TodoList {
         </ul>
       </div>
 
-    lazy val arrow = todos.map(el => el.map(_ => "=").mkString)
+    lazy val arrow = todos.map(
+      _.map { item =>
+        val className = if (item.isCompleted) Style.arrowCompleted else Style.arrowNotCompleted
+        <span class={className.htmlClass}>=</span>
+      }
+    )
 
     lazy val addTodo =
       <input
@@ -109,6 +114,14 @@ object TodoList {
 
   object Style extends StyleSheet.Inline {
     import dsl._
+
+    val arrowCompleted = style(
+      color(green)
+    )
+
+    val arrowNotCompleted = style(
+      color(black)
+    )
 
     val root = style(
       margin(3.em)

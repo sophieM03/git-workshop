@@ -37,9 +37,9 @@ object TodoList {
         </ul>
       </div>
 
-    lazy val arrow = todos.map(
+    lazy val arrow = items.map(
       _.map { item =>
-        val className = if (item.isCompleted) Style.arrowCompleted else Style.arrowNotCompleted
+        val className = if (item.isFinished) Style.arrowCompleted else Style.arrowNotCompleted
         <span class={className.htmlClass}>=</span>
       }
     )
